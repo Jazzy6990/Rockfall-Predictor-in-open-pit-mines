@@ -1,0 +1,7 @@
+scikit-learn
+python -m venv rockfall_env  #Environment creation
+rockfall_env\Scripts\activate  # activate
+python -m pip install --upgrade pip setuptools wheel 
+pip install -U scikit-learn
+ipykernel
+pip install pandas numpy scikit-learn matplotlib seaborn plotly streamlit

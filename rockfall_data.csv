@@ -1,0 +1,6 @@
+slope_angle,rock_type,rainfall,vegetation,rockfall_risk
+30,granite,50,low,high
+15,sandstone,20,high,low
+40,limestone,70,low,high
+25,granite,30,medium,medium
+10,sandstone,10,high,low
