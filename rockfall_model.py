@@ -29,19 +29,28 @@ def predict():
     lat = data.get("lat")
     lon = data.get("lon")
     name = data.get("name", "Selected Location")
-
-    # Get real-time rainfall
-    try:
-        resp = requests.get(
-            f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=precipitation",
-            timeout=6
-        )
-        rainfall = resp.json().get("hourly", {}).get("precipitation", [0])[0]
-    except:
-        rainfall = random.randint(0, 100)
-
-    slope_angle = random.randint(5, 60)
-    rock_type_granite = random.choice([0, 1])
+    
+    # Check if user provided custom values or use random/default values
+    if "rainfall" in data:
+        # User provided custom values
+        rainfall = data.get("rainfall")
+        slope_angle = data.get("slope_angle")
+        rock_type = data.get("rock_type", "Other")
+        rock_type_granite = 1 if rock_type.lower() == "granite" else 0
+    else:
+        # Use random values (for map clicks)
+        try:
+            resp = requests.get(
+                f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=precipitation",
+                timeout=6
+            )
+            rainfall = resp.json().get("hourly", {}).get("precipitation", [0])[0]
+        except:
+            rainfall = random.randint(0, 100)
+        
+        slope_angle = random.randint(5, 60)
+        rock_type_granite = random.choice([0, 1])
+        rock_type = "Granite" if rock_type_granite else "Other"
 
     X = pd.DataFrame([{
         "slope_angle": slope_angle,
@@ -86,12 +95,15 @@ def predict():
         "lon": lon,
         "slope_angle": slope_angle,
         "rainfall": rainfall,
-        "rock_type": "Granite" if rock_type_granite else "Other",
+        "rock_type": rock_type,
         "risk": "High" if risk_pred else "Low",
         "probability": round(prob,2),
         "graph_prob": f"data:image/png;base64,{graph_prob}",
         "graph_feat": f"data:image/png;base64,{graph_feat}"
     })
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

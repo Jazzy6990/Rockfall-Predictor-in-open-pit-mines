@@ -5,3 +5,4 @@ python -m pip install --upgrade pip setuptools wheel
 pip install -U scikit-learn
 ipykernel
 pip install pandas numpy scikit-learn matplotlib seaborn plotly streamlit
+python rockfall_model.py

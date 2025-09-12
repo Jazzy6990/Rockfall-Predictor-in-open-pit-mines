@@ -59,6 +59,61 @@ function updateResults() {
     .querySelector(".feature-value").textContent = slopeAngleInput.value + "°";
 }
 
+
+// Calculate button handler
+calculateBtn.addEventListener("click", function() {
+    // Get values from inputs
+    const rainfall = rainfallInput.value;
+    const slopeAngle = slopeAngleInput.value;
+    const rockType = rockTypeSelect.value;
+    
+    // Create a mock mine object with the input data
+    const userInputMine = {
+        name: "User Input Location",
+        lat: map.getCenter().lat, // Use current map center
+        lon: map.getCenter().lng, // Use current map center
+        rainfall: rainfall,
+        slope_angle: slopeAngle,
+        rock_type: rockType
+    };
+    
+    // Call prediction API
+    fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userInputMine)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Display results in the info box
+        document.getElementById("info-box").innerHTML = `
+            <div class="info-container">
+                <h3>${data.name}</h3>
+                <p><b>Coordinates:</b> ${data.lat.toFixed(4)}, ${data.lon.toFixed(4)}</p>
+                <p><b>Slope Angle:</b> ${data.slope_angle}°</p>
+                <p><b>Rainfall:</b> ${data.rainfall} mm</p>
+                <p><b>Rock Type:</b> ${data.rock_type}</p>
+                <p><b>Risk:</b> <span class="${data.risk === "High" ? "risk-high" : "risk-low"}">${data.risk}</span></p>
+                <p><b>Probability:</b> ${data.probability}%</p>
+                <h4>Probability Graph</h4>
+                <img src="${data.graph_prob}" class="graph"/>
+                <h4>Feature Values</h4>
+                <img src="${data.graph_feat}" class="graph"/>
+            </div>`;
+    })
+    .catch(err => {
+        console.error("Prediction error:", err);
+        document.getElementById("info-box").innerHTML = `<p style="color:red">Prediction failed: ${err.message}</p>`;
+    });
+});
+
+
+
 // Initialize Leaflet map
 var map = L.map("map", {
   minZoom: 4,
@@ -85,27 +140,23 @@ if (Array.isArray(mines) && mines.length > 0) {
           .then((r) => r.json())
           .then((data) => {
             document.getElementById("info-box").innerHTML = `
-                                <div class="info-container">
-                                <h3>${data.name}</h3>
-                                <p><b>Coordinates:</b> ${data.lat}, ${
-              data.lon
-            }</p>
-                                <p><b>Slope Angle:</b> ${data.slope_angle}°</p>
-                                <p><b>Rainfall:</b> ${data.rainfall} mm</p>
-                                <p><b>Rock Type:</b> ${data.rock_type}</p>
-                                <p><b>Risk:</b> <span class="${
-                                  data.risk === "High"
-                                    ? "risk-high"
-                                    : "risk-low"
-                                }">${data.risk}</span></p>
-                                <p><b>Probability:</b> ${data.probability}%</p>
-                                <h4>Probability Graph</h4>
-                                <img src="${data.graph_prob}" class="graph"/>
-                                <h4>Feature Values</h4>
-                                <img src="${data.graph_feat}" class="graph"/>
-                                </div>
-                            `;
-          })
+                 <div class="info-container">
+            <h3>${data.name}</h3>
+            <p><b>Coordinates:</b> ${data.lat}, ${ data.lon}</p>
+            <p><b>Slope Angle:</b> ${data.slope_angle}°</p>
+            <p><b>Rainfall:</b> ${data.rainfall} mm</p>
+            <p><b>Rock Type:</b> ${data.rock_type}</p>
+            <p><b>Risk:</b> <span class="${
+              data.risk === "High"
+                ? "risk-high"
+                : "risk-low"
+            }">${data.risk}</span></p>
+            <p><b>Probability:</b> ${data.probability}%</p>
+            <h4>Probability Graph</h4>
+            <img src="${data.graph_prob}" class="graph"/>
+            <h4>Feature Values</h4>
+            <img src="${data.graph_feat}" class="graph"/>
+            </div>`;})
           .catch((err) => {
             console.error("Prediction error:", err);
             document.getElementById(
@@ -120,3 +171,4 @@ if (Array.isArray(mines) && mines.length > 0) {
 } else {
   console.warn("No mines data to display on map.");
 }
+
