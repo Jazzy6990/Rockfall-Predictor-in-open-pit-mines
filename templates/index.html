@@ -7,13 +7,14 @@
     <title>Mine Risk Assessment</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 
 <body>
     <section class="parentContainer">
         <header class="header">
             <div class="nameContainer">
-                <h1>Rocfall Predictor</h1>
+                <h1>Rockfall Predictor</h1>
             </div>
             <div class="navbar">
                 <div class="navOptions">
@@ -26,7 +27,13 @@
                 <div class="map-container hero-child">
                     <div id="map"></div>
                 </div>
-                
+                <div id="risk-alert-container" class="risk-alert-container">
+                    <div class="risk-alert-header">
+                        <h3> High Risk Mines Alert</h3>
+                    </div>
+                    <div id="risk-alert-content" class="risk-alert-content">
+                    </div>
+                </div>
             </section>
             <section class="input-container">
                 <div class="input-section">
@@ -93,7 +100,7 @@
             </div>
             <div class="contactUs footer-child">
                 <p class="footer-child-header">Contact Us</p>
-                <p class="footer-child-body">Email</p>
+                <p class="footer-child-body">shobhitvishal377@gmail.com</p>
             </div>
             <div class="teamName footer-child">
                 <h2>Team BranchOut</h2>

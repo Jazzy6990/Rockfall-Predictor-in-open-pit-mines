@@ -27,6 +27,9 @@
             background-color: var(--primary-color);
         }
 
+
+        /* header section */
+
         header {
             height: 120px;
             width: 100%;
@@ -79,6 +82,9 @@
             color: white;
         }
 
+
+        /* main section */
+
         main {
             width: 100%;
             display: flex;
@@ -94,14 +100,16 @@
             width: 95%;
             margin: 2rem 0;
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 2fr 1fr;
             grid-template-rows: 2fr 1fr;
             gap: 1rem;
         }
 
+
+        /* map */
+
         .map-container {
-            padding: 0 4rem;
-            grid-column: 1 / 3;
+            grid-column: 1 / 2;
             grid-row: 1 / 3;
 
         }
@@ -119,6 +127,8 @@
         }
 
 
+
+        /* user input */
 
         .input-container {
             height: fit-content;
@@ -293,6 +303,8 @@
         }
 
 
+        /* footer section */
+
         footer {
             height: 30vh;
             width: 100%;
@@ -342,4 +354,85 @@
             font-weight: 500;
             font-size: 1.5rem;
             color: white;
+        }
+
+
+        /* Alert system */
+
+        .risk-alert-container {
+            height: 100%;
+            width: 100%;
+            background: white;
+            border: 5px solid #e74c3c;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: block;
+            animation: slideIn 0.3s ease-out;
+            grid-column: 2 / 3;
+            grid-row: 1 / 3;
+        }
+
+        .risk-alert-header {
+            display: flex;
+            height: 10%;
+            justify-content: center;
+            align-items: center;
+            background: #fffaf0;
+        }
+
+        .risk-alert-header h3 {
+            color: #e74c3c;
+            font-family: var(--font-main);
+            font-size: 1.3rem;
+        }
+
+        .risk-alert-content {
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .alert-mine-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fef9f9;
+            border-radius: 5px;
+            border-left: 3px solid #e74c3c;
+        }
+
+        .alert-mine-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-mine-name {
+            font-weight: 400;
+            color: #e74c3c;
+            margin-bottom: 5px;
+        }
+
+        .alert-mine-details {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .alert-mine-details p {
+            margin: 3px 0;
+        }
+
+        .no-high-risk {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
