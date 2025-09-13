@@ -180,9 +180,7 @@ if (Array.isArray(mines) && mines.length > 0) {
 // Risk Alert System
 let highRiskMines = [];
 
-
 function showRiskAlerts() {
-  
   const alertContent = document.getElementById("risk-alert-content");
   alertContent.innerHTML = "";
 
@@ -209,11 +207,9 @@ function showRiskAlerts() {
   document.getElementById("risk-alert-container").style.display = "block";
 }
 
-
 function checkAllMinesRisk() {
   highRiskMines = [];
   let checked = 0;
-
 
   if (!mines || mines.length === 0) {
     const alertContent = document.getElementById("risk-alert-content");
@@ -243,7 +239,6 @@ function checkAllMinesRisk() {
             });
           }
 
-    
           if (checked === mines.length) {
             showRiskAlerts();
           }
@@ -251,27 +246,24 @@ function checkAllMinesRisk() {
         .catch((err) => {
           console.error("Error checking mine risk:", err);
           checked++;
-     
+
           if (checked === mines.length) {
             showRiskAlerts();
           }
         });
     } else {
-      checked++; 
+      checked++;
     }
   });
 }
 
-
 function updateRiskAlerts(mine, data) {
   if (data.risk === "High" && data.probability > 60) {
-
     const existingIndex = highRiskMines.findIndex(
       (m) => m.lat === mine.lat && m.lon === mine.lon
     );
 
     if (existingIndex === -1) {
-  
       highRiskMines.push({
         name: mine.name || "Unknown Mine",
         lat: mine.lat,
@@ -280,14 +272,32 @@ function updateRiskAlerts(mine, data) {
         probability: data.probability,
       });
 
-  
       showRiskAlerts();
     }
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
-
   setTimeout(checkAllMinesRisk, 1000);
 });
+
+//chatbot
+
+const chatbotButton = document.getElementById("chatbotButton");
+const chatContainer = document.getElementById("chatContainer");
+const chatbotIcon = document.querySelector('.chatbot-icon');
+
+let isChatOpen = false;
+
+chatbotButton.addEventListener("click", () => {
+  isChatOpen = !isChatOpen;
+
+  if (isChatOpen) {
+    chatContainer.classList.add("active");
+    chatbotButton.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/4711/4711984.png" alt="Chatbot" class="chatbot-icon">';
+  } else {
+    chatContainer.classList.remove("active");
+    chatbotButton.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/4711/4711984.png" alt="Chatbot" class="chatbot-icon">';
+  }
+});
+

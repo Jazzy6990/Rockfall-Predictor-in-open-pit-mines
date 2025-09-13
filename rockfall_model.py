@@ -17,6 +17,15 @@ mines = [
     {"name": "Bailadila Iron Ore Mine", "lat": 18.7167, "lon": 81.2333},
     {"name": "Jharia Coal Mine", "lat": 23.7402, "lon": 86.4145},
     {"name": "Singrauli Coalfield", "lat": 24.1992, "lon": 82.6754},
+    {"name": "Lakheri Cement Mine (Rajasthan)", "lat": 25.6621, "lon": 75.6039},
+    {"name": "Malanjkhand Copper Mine (Madhya Pradesh)", "lat": 22.0174, "lon": 80.6856},
+    {"name": "Bharveli Manganese Mine (Madhya Pradesh)", "lat": 21.6651, "lon": 80.1856},
+    {"name": "Panchpatmali Bauxite Mines (Koraput, Odisha)", "lat": 18.7656, "lon": 82.7052},
+    {"name": "Jafrabad Mine (Gujarat)", "lat": 20.8575, "lon": 71.3633},
+    {"name": "Khetri Copper COmplex (Rajasthan)", "lat": 28.0176, "lon": 75.7959},
+    {"name": "Nimbahera Limestone Mines (Rajasthan)", "lat": 24.6149, "lon": 74.6651},
+    {"name": "Noamundi Iron Mine (Jharkhand)", "lat": 22.1570, "lon": 85.5316},
+    {"name": "Donimalai Iron Ore Mine (Karnataka)", "lat": 15.1160, "lon": 76.6758},
 ]
 
 @app.route("/")
